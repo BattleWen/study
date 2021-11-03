@@ -21,26 +21,26 @@ int BFS(int n, int k) {
 	while (!myQueue.empty()) {
 		status current = myQueue.front();
 		myQueue.pop();
-		if (current.n = k) {
+		if (current.n == k) {
 			return current.t;
 		}
-	}
-	for (int i = 0 ; i < 3 ; i++) {
-		status next(current.n, current.t + 1);
-		if (i == 1) {
-			next.n += 1;
+		for (int i = 0; i < 3; ++i) {
+			status next(current.n, current.t + 1);
+			if (i == 0) {
+				next.n += 1;
+			}
+			else if (i == 1) {
+				next.n -= 1;
+			}
+			else if (i == 2) {
+				next.n *= 2;
+			}
+			if (next.n < 0 || next.n >= MAXN || visit[next.n]) {
+				continue;
+			}
+			myQueue.push(next);
+			visit[next.n] = true;
 		}
-		else if (i == 2) {
-			next.n -= 1;
-		}
-		else if (i == 3) {
-			next.n *= 2;
-		}
-		if (next.n < 0 || next.n >MAXN || visit[next.n]) {
-			continue;
-		}
-		myQueue.push(next);
-		visit[next.n] = true;
 	}
 }
 
