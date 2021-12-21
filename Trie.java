@@ -2,10 +2,12 @@ class Trie{
 
     class Node{
         int count;
-        Node[] child;
+        //Node[] child;
+        HashMap<Character, Node> child;
         Node(){
             count = 0;
-            child = new Node[26];
+            //child = new Node[26];
+            child = new HashMap<Character, Node>();
         }
     }
 
@@ -28,14 +30,17 @@ class Trie{
     private boolean find(String word,boolean isInsert, boolean isPrefix){
         Node curr = root;
         for (char ch : s.toCharArray()){
-            if (curr.child[ch - 'a'] == null){
+            //if (curr.child[ch - 'a'] == null){
+            if (!curr.child.containsKey(ch)){
                 if (isInsert){
-                    curr.child[ch - 'a'] = new Node();
+                    //curr.child[ch - 'a'] = new Node();
+                    curr.child.put(ch, new Node());
                 }else {
                     return false;
                 }
             }
-            curr = curr.child[ch - 'a'];
+            //curr = curr.child[ch - 'a'];
+            curr = curr.child.get(ch);
         }
         if (isInsert) curr.count++;
         if (isPerfix) return true;
